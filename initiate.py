@@ -23,6 +23,8 @@ adders = {  "B": add_branche,
 def main(args : list[str]):
     #inputfilename = args[1]
     inputfilename = "config.txt"
+    # close the database connection if it is open
+    repo._close()
     # delete the database file if it exists
     if os.path.isfile("bgumart.db"):
         os.remove("bgumart.db")

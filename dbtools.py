@@ -50,10 +50,10 @@ class Dao(object):
     def find(self, **keyvals):
         column_names = keyvals.keys()
         params = list(keyvals.values())
- 
+
         stmt = 'SELECT * FROM {} WHERE {}' \
-               .format(self._table_name, ' AND '.join([col + '=?' for col in column_names]))
- 
+        .format(self._table_name, ' AND '.join([col + '=?' for col in column_names]))
+
         c = self._conn.cursor()
         c.execute(stmt, params)
         return orm(c, self._dto_type)
@@ -61,8 +61,8 @@ class Dao(object):
     def delete(self, **keyvals):
         column_names = keyvals.keys()
         params = list(keyvals.values())
- 
+
         stmt = 'DELETE FROM {} WHERE {}' \
-               .format(self._table_name,' AND '.join([col + '=?' for col in column_names]))
- 
+            .format(self._table_name,' AND '.join([col + '=?' for col in column_names]))
+
         self._conn.cursor().execute(stmt, params)
