@@ -4,20 +4,16 @@ import sys
 import os
 
 def add_branche(splittedline : list[str]):
-    #TODO: add the branch into the repo
-    pass
+    repo.branches.insert(Branche(int(splittedline[0]), splittedline[1], int(splittedline[2])))
 
 def add_supplier(splittedline : list[str]):
-    #TODO: insert the supplier into the repo
-    pass
+    repo.suppliers.insert(Supplier(int(splittedline[0]), splittedline[1], splittedline[2]))
 
 def add_product(splittedline : list[str]):
-    #TODO: insert product
-    pass
+    repo.products.insert(Product(int(splittedline[0]), splittedline[1], float(splittedline[2]), int(splittedline[3])))
 
 def add_employee(splittedline : list[str]):
-    #TODO: insert employee
-    pass
+    repo.employees.insert(Employee(int(splittedline[0]), splittedline[1], float(splittedline[2]), int(splittedline[3])))
 
 adders = {  "B": add_branche,
             "S": add_supplier,
@@ -25,12 +21,11 @@ adders = {  "B": add_branche,
             "E": add_employee}
 
 def main(args : list[str]):
-    inputfilename = args[1]
+    #inputfilename = args[1]
+    inputfilename = "config.txt"
     # delete the database file if it exists
-    repo._close()
-    # uncomment if needed
-    # if os.path.isfile("bgumart.db"):
-    #     os.remove("bgumart.db")
+    if os.path.isfile("bgumart.db"):
+        os.remove("bgumart.db")
     repo.__init__()
     repo.create_tables()
     with open(inputfilename) as inputfile:
