@@ -64,7 +64,8 @@ class Dao(object):
 
         stmt = 'DELETE FROM {} WHERE {}' \
             .format(self._table_name,' AND '.join([col + '=?' for col in column_names]))
-    
+            
+    # This method is used to update the table
     def update(self, id, **keyvals):
         column_names = keyvals.keys()
         params = list(keyvals.values())
@@ -74,3 +75,10 @@ class Dao(object):
             .format(self._table_name, ', '.join([col + '=?' for col in column_names]))
 
         self._conn.cursor().execute(stmt, params)
+    
+    # This method is used to print all the rows in the table
+    def print_all(self):
+        c = self._conn.cursor()
+        c.execute('SELECT * FROM {}'.format(self._table_name))
+        for row in c.fetchall():
+            print(row)
