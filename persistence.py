@@ -1,6 +1,6 @@
 import sqlite3
 import atexit
-from dbtools import Dao
+from dbtools import Dao, orm
  
 # Data Transfer Objects:
 class Employee(object):
@@ -89,7 +89,37 @@ class Repository(object):
 
     def execute_command(self, script: str) -> list:
         return self._conn.cursor().execute(script).fetchall()
-
+    
+    # return the data from the tables for the employees
+    # report: Name, Salary, Working location, total sales income
+    def create_EmployeesReport(self):
+        query = """
+        SELECT employees.name, employees.salary, branches.location, 
+               IFNULL(SUM(products.price * ABS(activities.quantity)), 0) AS total_sales_income
+        FROM employees
+        LEFT JOIN branches ON employees.branche = branches.id
+        LEFT JOIN activities ON employees.id = activities.activator_id
+        LEFT JOIN products ON activities.product_id = products.id
+        GROUP BY employees.id
+        ORDER BY employees.name;
+        """
+        report = self.execute_command(query)
+        return report
+    
+    # return the data from the tables for the activities
+    # report: date of activity, item description, quantity, name of seller, and the name of the supplier
+    def create_ActivitiesReport(self):
+        query = """
+        SELECT activities.date, products.description, activities.quantity, employees.name, suppliers.name
+        FROM activities
+        JOIN products ON activities.product_id = products.id
+        LEFT JOIN employees ON activities.activator_id = employees.id
+        LEFT JOIN suppliers ON activities.activator_id = suppliers.id
+        ORDER BY activities.date;
+        """
+        report = self.execute_command(query)
+        return report
+        
 # singleton
 repo = Repository()
 atexit.register(repo._close)

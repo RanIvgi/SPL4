@@ -32,17 +32,32 @@ def printSuppliers():
 
 # Print Employees Report format
 def printEmployeesReport():
-    print ("Employees Report")
-    print ("ID, Name, Salary, Branch")
-    repo.employees.print_all()
+    print ("Employees report")
+    report = repo.create_EmployeesReport()
+    for row in report:
+        print(" ".join(map(str, row)))
+    
+def printActivitiesreport():
+    print ("Activities report")
+    report = repo.create_ActivitiesReport()
+    for row in report:
+        print(row)
 
 def main():
     print ("Printing the database")
     printActivites()
+    print()
     printBranches()
+    print()
     printEmployees()
+    print()
     printProducts()
+    print()
     printSuppliers()
+    print()
+    printEmployeesReport()
+    print()
+    printActivitiesreport()
     
 
 if __name__ == '__main__':
