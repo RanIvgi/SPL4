@@ -64,5 +64,13 @@ class Dao(object):
 
         stmt = 'DELETE FROM {} WHERE {}' \
             .format(self._table_name,' AND '.join([col + '=?' for col in column_names]))
+    
+    def update(self, id, **keyvals):
+        column_names = keyvals.keys()
+        params = list(keyvals.values())
+        params.append(id)
+
+        stmt = 'UPDATE {} SET {} WHERE id = ?' \
+            .format(self._table_name, ', '.join([col + '=?' for col in column_names]))
 
         self._conn.cursor().execute(stmt, params)

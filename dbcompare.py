@@ -28,7 +28,7 @@ class DBCompare:
 
 if __name__ == '__main__':
     db1_path = "bgumart.db"
-    db2_path = "ExmpleAfterConfig.db"
+    db2_path = "bgumart_after_action.db"
     comparer = DBCompare(db1_path, db2_path)
     comparison_results = comparer.compare_all_tables()
     for table, result in comparison_results.items():
