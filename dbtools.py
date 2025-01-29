@@ -77,8 +77,7 @@ class Dao(object):
         self._conn.cursor().execute(stmt, params)
     
     # This method is used to print all the rows in the table
-    def print_all(self):
+    def get_Data_Before_Print(self):
         c = self._conn.cursor()
         c.execute('SELECT * FROM {}'.format(self._table_name))
-        for row in c.fetchall():
-            print(row)
+        return c.fetchall()

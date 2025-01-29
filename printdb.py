@@ -3,27 +3,32 @@ from persistence import *
 # Print all Activities
 def printActivites():
     print ("Activities")
-    repo.activities.print_all()
+    for activity in repo.activities.get_Data_Before_Print():
+        print(activity)
 
 # Print all Branches
 def printBranches():
     print ("Branches")
-    repo.branches.print_all()
+    for branch in repo.branches.get_Data_Before_Print():
+        print(branch)
 
 # Print all Employees
 def printEmployees():
     print ("Employees")
-    repo.employees.print_all()
+    for employee in repo.employees.get_Data_Before_Print():
+        print(employee)
 
 # Print all Products
 def printProducts():
     print ("Products")
-    repo.products.print_all()
+    for product in repo.products.get_Data_Before_Print():
+        print(product)
 
 # Print all Suppliers
 def printSuppliers():
     print ("Suppliers")
-    repo.suppliers.print_all()
+    for supplier in repo.suppliers.get_Data_Before_Print():
+        print(supplier)
 
 # Print Employees Report format
 def printEmployeesReport():
