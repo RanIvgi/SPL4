@@ -36,7 +36,8 @@ def printEmployeesReport():
     report = repo.create_EmployeesReport()
     for row in report:
         print(" ".join(map(str, row)))
-    
+
+# Print Activities Report format
 def printActivitiesreport():
     print ("Activities report")
     report = repo.create_ActivitiesReport()
@@ -44,7 +45,6 @@ def printActivitiesreport():
         print(row)
 
 def main():
-    print ("Printing the database")
     printActivites()
     print()
     printBranches()
