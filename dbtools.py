@@ -81,3 +81,9 @@ class Dao(object):
         c = self._conn.cursor()
         c.execute('SELECT * FROM {}'.format(self._table_name))
         return c.fetchall()
+    
+    # This method is used to print the rows in the table in given field by whom the order will be done
+    def get_Data_Before_Print_OrderBy(self, field):
+        c = self._conn.cursor()
+        c.execute('SELECT * FROM {} ORDER BY {}'.format(self._table_name, field))
+        return c.fetchall()

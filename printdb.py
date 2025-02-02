@@ -3,7 +3,7 @@ from persistence import *
 # Print all Activities
 def printActivites():
     print ("Activities")
-    for activity in repo.activities.get_Data_Before_Print():
+    for activity in repo.activities.get_Data_Before_Print_OrderBy("date"):
         print(activity)
 
 # Print all Branches
