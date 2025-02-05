@@ -75,15 +75,37 @@ class Dao(object):
             .format(self._table_name, ', '.join([col + '=?' for col in column_names]))
 
         self._conn.cursor().execute(stmt, params)
-    
-    # This method is used to print all the rows in the table
-    def get_Data_Before_Print(self):
+        
+    def get_primary_key_column(self) -> str:
+        query = f"PRAGMA table_info({self._table_name})"
+        cursor = self._conn.cursor()
+        cursor.execute(query)
+        columns = cursor.fetchall()
+        for column in columns:
+            if column[5] == 1:  # The 6th column (index 5) is the primary key flag
+                return column[1]  # The 2nd column (index 1) is the column name
+        return None
+        
+    # This method is used to sort the table by a specific field, and return the data
+    def __str__(self):
         c = self._conn.cursor()
-        c.execute('SELECT * FROM {}'.format(self._table_name))
-        return c.fetchall()
-    
-    # This method is used to print the rows in the table in given field by whom the order will be done
-    def get_Data_Before_Print_OrderBy(self, field):
-        c = self._conn.cursor()
-        c.execute('SELECT * FROM {} ORDER BY {}'.format(self._table_name, field))
-        return c.fetchall()
+        # In case called From activities table
+        if self._table_name == 'activities':
+            c.execute('SELECT * FROM {} ORDER BY {}'.format(self._table_name, "date"))
+            data = c.fetchall()
+            return '\n'.join([str(row) for row in data])
+        # In case called From any other table
+        else:
+            primary_key_column = self.get_primary_key_column()
+            if primary_key_column:
+                c.execute('SELECT * FROM {} ORDER BY {}'.format(self._table_name, primary_key_column))
+                data = c.fetchall()
+                return '\n'.join([str(row) for row in data])
+            # In case the table does not have a primary key
+            else:
+                c.execute('SELECT * FROM {}'.format(self._table_name))
+                data = c.fetchall()
+                return '\n'.join([str(row) for row in data])
+        
+        
+        

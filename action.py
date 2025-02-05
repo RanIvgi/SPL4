@@ -15,8 +15,7 @@ def Check_If_Can_Buy(product_id : int, quantity : int):
         return False
 
 def main(args : list[str]):
-    #inputfilename : str = args[1]
-    inputfilename = "action_ORExmple.txt"
+    inputfilename : str = args[1]
     with open(inputfilename) as inputfile:
         for line in inputfile:
             splittedline : list[str] = line.strip().split(", ")

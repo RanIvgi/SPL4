@@ -21,8 +21,7 @@ adders = {  "B": add_branche,
             "E": add_employee}
 
 def main(args : list[str]):
-    #inputfilename = args[1]
-    inputfilename = "config.txt"
+    inputfilename = args[1]
     # close the database connection if it is open
     repo._close()
     # delete the database file if it exists
